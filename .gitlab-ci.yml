@@ -1,0 +1,23 @@
+stages:
+  - build
+  - deploy
+
+variables:
+  DOCKER_HOST: tcp://docker:2375/
+
+build:
+  stage: build
+  tags:
+    - your-runner-tag
+  script:
+    - docker-compose build
+
+deploy:
+  stage: deploy
+  tags:
+    - your-runner-tag
+  only:
+    - main
+  script:
+    - docker-compose down
+    - docker-compose up -d
